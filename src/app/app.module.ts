@@ -10,13 +10,15 @@ import { SignupComponent } from './signup/signup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GetDataComponent } from './get-data/get-data.component';
 import {FormsModule} from '@angular/forms';
+import { ValueLocalStorageComponent } from './value-local-storage/value-local-storage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LogInComponent,
     SignupComponent,
-    GetDataComponent
+    GetDataComponent,
+    ValueLocalStorageComponent
   ],
   imports: [
     BrowserModule,

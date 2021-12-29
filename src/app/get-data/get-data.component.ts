@@ -10,39 +10,51 @@ import { CommonService } from '../common.service';
 export class GetDataComponent implements OnInit {
 
   selectedLevel: any;
-  users={
-    id:null,
-    email:null,
-    firstname:null,
-    lastname:null,
-    avtar:null
+    users = {
+    id: null,
+    email: null,
+    firstname: null,
+    lastname: null,
+    avtar: null
   }
-  allusers:any[]=[];
+  allusers: any[] = [];
 
-  constructor(private common:CommonService) { }
+  constructor(private common: CommonService) { }
 
   data: any[] = [
     { id: 1, name: "1" },
     { id: 2, name: "2" }
-    
-  ];
-  
 
-  
+  ];
+
+
+
   ngOnInit(): void {
   }
   selected() {
     console.log(this.selectedLevel)
   }
-  getusers(){
-    this.common.getusers(this.selectedLevel.id).subscribe((response:any)=>{
+  getusers() {
+     console.log(this.selectedLevel.id);
+     
+    
+this.allusers = JSON.parse(localStorage.getItem('user') || '[]')
+    this.common.getusers(this.selectedLevel.id).subscribe((response: any) => {
       console.log(response);
-      this.allusers=response['data'];
-      window.localStorage.setItem('users',JSON.stringify(this.allusers))
-    })
+      this.allusers = this.allusers.concat(response['data']);
+      localStorage.setItem("user", JSON.stringify(this.allusers));
+      this.allusers = JSON.parse(localStorage.getItem('user') || '[]');
+    });
   }
-  // removeitem(){
-  //   window.localStorage.removeItem('id')
-  // }
+
+  deleteperson(data: any) {
+    this.allusers.length = 0
+    this.allusers = JSON.parse(localStorage.getItem('user') || '[]');
+    this.allusers = this.allusers.filter(item => item.id != data)
+    localStorage.setItem("user", JSON.stringify(this.allusers));
+    console.log(this.allusers);
+
+
+  }
 
 }
